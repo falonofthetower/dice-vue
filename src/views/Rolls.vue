@@ -22,12 +22,11 @@ export default {
   data() {
       return {
       rolls: [],
-      isLoading: true
+      isLoading: true,
     };
   },
   created() {
     api.getRolls().then(response => {
-      console.log(response.data);
       this.rolls = response.data;
       this.isLoading = false;
     });
