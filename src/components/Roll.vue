@@ -1,15 +1,26 @@
 <template>
   <div>
-    <div :class="computedClass">
-    </div>
+    <button v-on:click="reroll" :class="computedClass">
+    </button>
   </div>
 </template>
 
 <script>
+
+import api from "@/api";
+
 export default {
   computed: {
     computedClass() {
       return 'die die-face-' + this.roll.value.toString();
+    }
+  },
+  methods: {
+    reroll: function () {
+      api.getRolls().then(response => {
+        this.roll = response.data[0];
+        this.isLoading = false;
+      });
     }
   },
   props: {
@@ -26,7 +37,15 @@ export default {
 .die {
   background-repeat: no-repeat;
   background-position: center; /* Center the image */
+  background-size: 200px 200px;
   height: 200px;
+  width: 200px;
+  border: none;
+  background-color: white;
+}
+
+button:focus {
+  outline: none;
 }
 
 .die-face-1 {
