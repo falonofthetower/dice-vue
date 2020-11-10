@@ -7,8 +7,6 @@
 
 <script>
 
-import api from "@/api";
-
 export default {
   computed: {
     computedClass() {
@@ -17,10 +15,7 @@ export default {
   },
   methods: {
     reroll: function () {
-      api.getRolls().then(response => {
-        this.roll = response.data[0];
-        this.isLoading = false;
-      });
+      this.$store.dispatch("getNewRolls");
     }
   },
   props: {

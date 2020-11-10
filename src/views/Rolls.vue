@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <div v-show="isLoading" class="spinner">
-      <i class="fas fa-spinner fa-spin"></i>
-    </div>
     <div class="row">
       <div v-for="roll in rolls" :key="roll.id" class="col-md-4">
         <Roll :roll="roll"/>
@@ -12,24 +9,19 @@
 </template>
 
 <script>
-import api from "@/api";
 import Roll from "@/components/Roll";
 
 export default {
   components: {
     Roll
   },
-  data() {
-      return {
-      rolls: [],
-      isLoading: true,
-    };
-  },
   created() {
-    api.getRolls().then(response => {
-      this.rolls = response.data;
-      this.isLoading = false;
-    });
+    this.$store.dispatch("getNewRolls");
+  },
+  computed: {
+    rolls() {
+      return this.$store.state.rolls;
+    },
   }
 };
 </script>
